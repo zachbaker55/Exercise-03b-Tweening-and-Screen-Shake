@@ -12,7 +12,7 @@ Open Godot. In the Project Manager, tap the "Import" button. Tap "Browse" and na
 
 If you run the project, you will see the project where we left off at the end of Exercise 03a. We will now have an opportunity to start making it "juicier".
 
-*I have made a few small adjustments in anticpation of this exercise. If it seems like I have moved things around a bit, don't worry*
+*I have made a few small adjustments in anticpation of this exercise. If it seems like I have moved things around a bit, don't worry.*
 
 ---
 
@@ -214,7 +214,7 @@ Built using Godot 3.5
 
 ## Future Development
 
-TAdding a face, Comet trail, Music and Sound, Shaders, etc.
+Adding a face, Comet trail, Music and Sound, Shaders, etc.
 
 ## Created by 
 

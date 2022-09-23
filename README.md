@@ -20,8 +20,8 @@ If you run the project, you will see the project where we left off at the end of
 
 Open `res://Ball/Ball.tscn`. As a child of the Ball scene, add a Tween node. Then edit the `_on_Ball_body_entered` and add this to the end of that callback:
 ```
-    $Tween.interpolate_property($Images/Highlight, "modulate:a", 1.0, 0.0, decay_highlight, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
-    $Tween.interpolate_property($Images/Highlight, "scale", Vector2(2.0,2.0), Vector2(1.0,1.0), decay_highlight_size, Tween.TRANS_BOUNCE, Tween.EASE_IN)
+    $Tween.interpolate_property($Images/Highlight, "modulate:a", 1.0, 0.0, time_highlight, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+    $Tween.interpolate_property($Images/Highlight, "scale", Vector2(2.0,2.0), Vector2(1.0,1.0), time_highlight_size, Tween.TRANS_BOUNCE, Tween.EASE_IN)
     $Tween.start()
     wobble_direction = linear_velocity.tangent().normalized()
     wobble_amplitude = wobble_max
@@ -47,24 +47,30 @@ func distort():
 
 ## The Indicator
 
-Open `res://UI/Indicator.tscn` and add a Tween node as a child of the Indicator node. Then edit the `_ready` callback as follows:
+Open `res://UI/Indicator.tscn` and add a Tween node as a child of the Indicator node. Attach `res://UI/Indicator.gd` as a script to the Indicator node, Then edit the script as follows:
 
 ```
+extends Node2D
+
+var modulate_target = 0.5
+var mod = 0
+var scale_target = Vector2(0.75,0.75)
+var sca = Vector2(0.5,0.5)
+
 func _ready():
-  $Tween.interpolate_property($Highlight, "scale", $Highlight.scale, scale_target, 1.0, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
-  $Tween.start()
-  $Tween.interpolate_property($Highlight, "modulate:a", $Highlight.modulate.a, modulate_target, 1.0, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
-  $Tween.start()
+	$Tween.interpolate_property($Highlight, "scale", $Highlight.scale, scale_target, 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	$Tween.interpolate_property($Highlight, "modulate:a", $Highlight.modulate.a, modulate_target, 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	$Tween.start()
 ```
 
 Select the Tween node and attach a `tween_all_completed` signal back to `res://UI/Indicator.gd`. The contents of that callback should be as follows (the ternary statements on the first two lines alternate between the beginning and target values):
 ```
 func _on_Tween_tween_all_completed():
-  mod = 0.0 if mod == modulate_target else modulate_target
-  sca = Vector2(0.5,0.5) if sca == scale_target else scale_target
-  $Tween.interpolate_property($Highlight, "scale", $Highlight.scale, sca, 1.0, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
-  $Tween.interpolate_property($Highlight, "modulate:a", $Highlight.modulate.a, mod, 1.0, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
-  $Tween.start()
+	mod = 0.0 if mod == modulate_target else modulate_target
+	sca = Vector2(0.5,0.5) if sca == scale_target else scale_target
+	$Tween.interpolate_property($Highlight, "scale", $Highlight.scale, sca, 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	$Tween.interpolate_property($Highlight, "modulate:a", $Highlight.modulate.a, mod, 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	$Tween.start()
 ```
 
 ## The Paddle

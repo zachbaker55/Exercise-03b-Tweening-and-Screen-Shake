@@ -18,5 +18,5 @@ func _input(event):
 	if event is InputEventMouseMotion:
 		target.x += event.relative.x
 
-func hit():
+func hit(_ball):
 	$Confetti.emitting = true

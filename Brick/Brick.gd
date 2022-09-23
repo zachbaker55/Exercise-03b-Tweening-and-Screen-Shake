@@ -33,7 +33,7 @@ func _physics_process(_delta):
 	if dying and not $Confetti.emitting:
 		queue_free()
 
-func hit():
+func hit(_ball):
 	die()
 
 func die():

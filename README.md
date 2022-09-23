@@ -2,6 +2,8 @@
 
 Exercise for MSCH-C220
 
+A demonstration of this exercise is available at [https://youtu.be/rNa0Wk2KZN0](https://youtu.be/rNa0Wk2KZN0).
+
 This exercise is the next opportunity for you to experiment with juicy features to our brick-breaker game. The exercise will provide you with several more features that should move you towards the implementation of Project 03.
 
 Fork this repository. When that process has completed, make sure that the top of the repository reads [your username]/Exercise-03b-Tweening-and-Screen-Shake. Edit the LICENSE and replace BL-MSCH-C220-F22 with your full name. Commit your changes.
@@ -131,7 +133,7 @@ func hit(ball):
 
 ## Screen Shake
 
-Finally, open `res://Game.tscn`. As a child of the Game node, attach a Camera2D and rename it Camera. *Set the Camera as Current = yes in the Inspector.* Attach the following script to the Camera node (this would be a good script to save in your GitHub Gists for later):
+Finally, open `res://Game.tscn`. As a child of the Game node, attach a Camera2D and rename it Camera. *Set the Camera as Current = yes in the Inspector.* Attach the following script (`res://UI/Camera.gd`) to the Camera node (this would be a good script to save in your GitHub Gists for later):
 ```
 extends Camera2D
 # Originally developed by Squirrel Eiserloh (https://youtu.be/tu-Qe66AvtY)

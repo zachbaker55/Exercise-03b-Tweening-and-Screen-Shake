@@ -27,7 +27,7 @@ func _ready():
 
 func _on_Ball_body_entered(body):
 	if body.has_method("hit"):
-		body.hit()
+		body.hit(self)
 		accelerate = true
 	
 func _integrate_forces(state):

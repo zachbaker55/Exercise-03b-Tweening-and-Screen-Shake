@@ -11,5 +11,5 @@ func _physics_process(_delta):
 	if $ColorRect.color.v < 1:
 		$ColorRect.color.v += decay
 
-func hit():
+func hit(_ball):
 	$ColorRect.color = Color8(201,42,42)

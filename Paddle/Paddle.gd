@@ -20,3 +20,6 @@ func _input(event):
 
 func hit(_ball):
 	$Confetti.emitting = true
+	$Tween.interpolate_property($Images/Highlight,"modulate:a",1.0,0.0,time_highlight,Tween.TRANS_LINEAR,Tween.EASE_IN_OUT)
+	$Tween.interpolate_property($Images/Highlight,"scale",Vector2(2.0,2.0),Vector2(1.0,1.0),time_highlight_size,Tween.TRANS_BOUNCE,Tween.EASE_IN)
+	$Tween.start()

@@ -53,3 +53,5 @@ scale_amount_curve = SubResource( 2 )
 color_ramp = SubResource( 3 )
 hue_variation = 1.0
 hue_variation_random = 1.0
+
+[node name="Tween" type="Tween" parent="."]

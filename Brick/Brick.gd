@@ -11,7 +11,11 @@ export var time_s = 1.2
 export var time_v = 1.5
 
 func _ready():
-	position = new_position
+	position.x = new_position.x
+	position.y = -100
+	$Tween.interpolate_property(self,"position",position, new_position, + randf()*2,Tween.TRANS_BOUNCE,Tween.EASE_IN_OUT)
+	$Tween.start()
+	
 	if score >= 100:
 		$ColorRect.color = Color8(224,49,49)
 	elif score >= 90:
@@ -30,7 +34,7 @@ func _ready():
 		$ColorRect.color = Color8(134,142,150)
 
 func _physics_process(_delta):
-	if dying and not $Confetti.emitting:
+	if dying and not $Confetti.emitting and not $Tween.is_active():
 		queue_free()
 
 func hit(_ball):
@@ -39,7 +43,13 @@ func hit(_ball):
 func die():
 	dying = true
 	collision_layer = 0
-	$ColorRect.hide()
+	collision_mask = 0
 	Global.update_score(score)
 	get_parent().check_level()
 	$Confetti.emitting = true
+	$Tween.interpolate_property(self,"position",position,Vector2(position.x,1000),time_fall,Tween.TRANS_EXPO,Tween.EASE_IN)
+	$Tween.interpolate_property(self,"rotation",rotation,-PI+randf()*2*PI,time_rotate,Tween.TRANS_QUAD,Tween.EASE_IN_OUT)
+	$Tween.interpolate_property($ColorRect,"color:a",$ColorRect.color.a,0,time_a,Tween.TRANS_LINEAR,Tween.EASE_IN_OUT)
+	$Tween.interpolate_property($ColorRect,"color:s",$ColorRect.color.s,0,time_s,Tween.TRANS_LINEAR,Tween.EASE_IN_OUT)
+	$Tween.interpolate_property($ColorRect,"color:v",$ColorRect.color.v,0,time_v,Tween.TRANS_LINEAR,Tween.EASE_IN_OUT)
+	$Tween.start()

@@ -29,7 +29,12 @@ func _on_Ball_body_entered(body):
 	if body.has_method("hit"):
 		body.hit(self)
 		accelerate = true
-	
+		$Tween.interpolate_property($Images/Highlight, "modulate:a",1.0,0.0,time_highlight,Tween.TRANS_LINEAR,Tween.EASE_IN_OUT)
+		$Tween.interpolate_property($Images/Highlight, "scale",Vector2(2.0,2.0),Vector2(1.0,1.0),time_highlight_size,Tween.TRANS_BOUNCE,Tween.EASE_IN)
+		$Tween.start()
+		wobble_direction = linear_velocity.tangent().normalized()
+		wobble_amplitude = wobble_max
+		
 func _integrate_forces(state):
 	wobble()
 	distort()
@@ -49,7 +54,13 @@ func die():
 	queue_free()
 
 func wobble():
-	pass
+	wobble_period += 1
+	if wobble_amplitude > 0:
+		var pos = wobble_direction * wobble_amplitude * sin(wobble_period)
+		$Images.position = pos
+		wobble_amplitude -= decay_wobble
 	
 func distort():
-	pass
+	var direction = Vector2(1 + linear_velocity.length() * distort_effect, 1 - linear_velocity.length() * distort_effect)
+	$Images.rotation = linear_velocity.angle()
+	$Images.scale = direction
